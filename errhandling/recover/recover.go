@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"errors"
 )
 
 func tryRecover() {
@@ -21,7 +22,7 @@ func tryRecover() {
 	// Uncomment each block to see different panic
 	// scenarios.
 	// Normal error
-	//panic(errors.New("this is an error"))
+	panic(errors.New("this is an error"))
 
 	// Division by zero
 	//b := 0
