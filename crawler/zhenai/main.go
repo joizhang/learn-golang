@@ -1,9 +1,10 @@
 package main
 
 import (
-	"imooc.com/joizhang/learn-golang/crawler/engine"
 	"imooc.com/joizhang/learn-golang/crawler/scheduler"
 	"imooc.com/joizhang/learn-golang/crawler/zhenai/parser"
+	"imooc.com/joizhang/learn-golang/crawler/engine"
+	"imooc.com/joizhang/learn-golang/crawler/types"
 )
 
 func main() {
@@ -11,7 +12,7 @@ func main() {
 		Scheduler:   &scheduler.SimpleScheduler{},
 		WorkerCount: 10,
 	}
-	e.Run(engine.Request{
+	e.Run(types.Request{
 		Url:       "http://www.zhenai.com/zhenghun",
 		ParseFunc: parser.ParseCityList,
 	})

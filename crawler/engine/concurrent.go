@@ -1,20 +1,20 @@
 package engine
 
-import "log"
+import (
+	"log"
+	"imooc.com/joizhang/learn-golang/crawler/types"
+	"imooc.com/joizhang/learn-golang/crawler/scheduler"
+)
 
 type ConcurrentEngine struct {
-	Scheduler   Scheduler
+	Scheduler   scheduler.Scheduler
 	WorkerCount int
 }
 
-type Scheduler interface {
-	Submit(Request)
-	ConfigureMasterWorkerChan(chan Request)
-}
-
-func (e *ConcurrentEngine) Run(seeds ...Request) {
-	in := make(chan Request)
-	out := make(chan ParseResult)
+// 并发版
+func (e *ConcurrentEngine) Run(seeds ...types.Request) {
+	in := make(chan types.Request)
+	out := make(chan types.ParseResult)
 	e.Scheduler.ConfigureMasterWorkerChan(in)
 
 	for i := 0; i < e.WorkerCount; i++ {
@@ -37,7 +37,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 	}
 }
 
-func createWorker(in chan Request, out chan ParseResult) {
+func createWorker(in chan types.Request, out chan types.ParseResult) {
 	go func() {
 		for {
 			request := <-in
