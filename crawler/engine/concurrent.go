@@ -13,22 +13,23 @@ type ConcurrentEngine struct {
 
 // 并发版
 func (e *ConcurrentEngine) Run(seeds ...types.Request) {
-	in := make(chan types.Request)
 	out := make(chan types.ParseResult)
-	e.Scheduler.ConfigureMasterWorkerChan(in)
+	e.Scheduler.Run()
 
 	for i := 0; i < e.WorkerCount; i++ {
-		createWorker(in, out)
+		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
 	for _, r := range seeds {
 		e.Scheduler.Submit(r)
 	}
 
+	itemCount := 0
 	for {
 		result := <-out
 		for _, item := range result.Items {
-			log.Printf("Got item: %v", item)
+			log.Printf("Got item #%d: %v", itemCount, item)
+			itemCount++
 		}
 
 		for _, request := range result.Requests {
@@ -37,9 +38,13 @@ func (e *ConcurrentEngine) Run(seeds ...types.Request) {
 	}
 }
 
-func createWorker(in chan types.Request, out chan types.ParseResult) {
+func createWorker(in chan types.Request,
+	out chan types.ParseResult,
+	ready scheduler.ReadyNotifier) {
 	go func() {
 		for {
+			// tell scheduler i am ready
+			ready.WorkerReady(in)
 			request := <-in
 			result, err := worker(request)
 			if err != nil {
