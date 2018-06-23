@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"testing"
 	"io/ioutil"
+	"testing"
 )
 
 func TestParseCityList(t *testing.T) {
@@ -20,7 +20,7 @@ func TestParseCityList(t *testing.T) {
 		"http://www.zhenai.com/zhenghun/alashanmeng",
 	}
 	expectedCities := []string{
-		"City 阿坝","City 阿克苏","City 阿拉善盟",
+		"City 阿坝", "City 阿克苏", "City 阿拉善盟",
 	}
 	if len(result.Requests) != resultSize {
 		t.Errorf("result should hava %d requests; but had %d",

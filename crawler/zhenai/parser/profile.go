@@ -2,9 +2,9 @@ package parser
 
 import (
 	"imooc.com/joizhang/learn-golang/crawler/engine"
+	"imooc.com/joizhang/learn-golang/crawler/model"
 	"regexp"
 	"strconv"
-	"imooc.com/joizhang/learn-golang/crawler/model"
 )
 
 var ageRe = regexp.MustCompile(`<td><span class="label">年龄：</span>([\d]+)岁</td>`)

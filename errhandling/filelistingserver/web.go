@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"imooc.com/joizhang/learn-golang/errhandling/filelistingserver/filelisting"
-	"os"
 	"github.com/gpmgo/gopm/modules/log"
+	"imooc.com/joizhang/learn-golang/errhandling/filelistingserver/filelisting"
+	"net/http"
+	"os"
 )
 
 type appHandler func(writer http.ResponseWriter, request *http.Request) error

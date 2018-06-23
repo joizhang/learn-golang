@@ -1,12 +1,12 @@
 package pipeline
 
 import (
-	"sort"
-	"io"
 	"encoding/binary"
-	"math/rand"
-	"time"
 	"fmt"
+	"io"
+	"math/rand"
+	"sort"
+	"time"
 )
 
 var startTime time.Time
@@ -79,7 +79,7 @@ func ReaderSource(reader io.Reader, chunkSize int) <-chan int {
 				v := int(binary.BigEndian.Uint64(buffer))
 				out <- v
 			}
-			if err != nil || (chunkSize != -1 && bytesRead >= chunkSize){
+			if err != nil || (chunkSize != -1 && bytesRead >= chunkSize) {
 				break
 			}
 		}

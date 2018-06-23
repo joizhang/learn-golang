@@ -2,7 +2,7 @@ package scheduler
 
 import "imooc.com/joizhang/learn-golang/crawler/engine"
 
-type SimpleScheduler struct{
+type SimpleScheduler struct {
 	workerChan chan engine.Request
 }
 
@@ -14,4 +14,3 @@ func (s *SimpleScheduler) Submit(r engine.Request) {
 func (s *SimpleScheduler) ConfigureMasterWorkerChan(c chan engine.Request) {
 	s.workerChan = c
 }
-
