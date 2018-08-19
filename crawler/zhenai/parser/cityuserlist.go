@@ -5,10 +5,11 @@ import (
 	"regexp"
 )
 
-const cityRe = `<a href="(http://album.zhenai.com/u/[0-9]+)"[^>]*>([^<]+)</a>`
+const cityUserListRe = `<a href="(http://album.zhenai.com/u/[0-9]+)"[^>]*>([^<]+)</a>`
 
-func ParseCity(contents []byte) types.ParseResult {
-	re, _ := regexp.Compile(cityRe)
+// 获取城市里面的用户列表
+func ParseCityUserList(contents []byte) types.ParseResult {
+	re, _ := regexp.Compile(cityUserListRe)
 	matches := re.FindAllSubmatch(contents, -1)
 	result := types.ParseResult{}
 	for _, m := range matches {

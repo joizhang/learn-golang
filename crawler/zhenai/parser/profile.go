@@ -20,6 +20,7 @@ var hokouRe = regexp.MustCompile(`<td><span class="label">籍贯：</span>([^<]+
 var houseRe = regexp.MustCompile(`<td><span class="label">住房条件：</span><span field="">([^<]+)</span></td>`)
 var carRe = regexp.MustCompile(`<td><span class="label">是否购车：</span><span field="">([^<]+)</span></td>`)
 
+// 获取用户的详细资料
 func ParseProfile(contents []byte, name string) types.ParseResult {
 	profile := model.Profile{}
 	profile.Name = name

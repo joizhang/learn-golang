@@ -7,6 +7,7 @@ import (
 
 const cityListRe = `<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`
 
+// 获取城市列表
 func ParseCityList(contents []byte) types.ParseResult {
 	re, _ := regexp.Compile(cityListRe)
 	matches := re.FindAllSubmatch(contents, -1)
@@ -15,7 +16,7 @@ func ParseCityList(contents []byte) types.ParseResult {
 		result.Items = append(result.Items, "City "+string(m[2]))
 		result.Requests = append(
 			result.Requests,
-			types.Request{Url: string(m[1]), ParseFunc: ParseCity})
+			types.Request{Url: string(m[1]), ParseFunc: ParseCityUserList})
 	}
 	return result
 }
