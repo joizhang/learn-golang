@@ -4,7 +4,7 @@ import (
 	"imooc.com/joizhang/learn-golang/crawler/types"
 )
 
-// 所有Worker公用一个输入
+// 所有Worker共用一个输入
 type SimpleScheduler struct {
 	workerChan chan types.Request
 }

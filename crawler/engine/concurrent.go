@@ -17,10 +17,13 @@ func (e *ConcurrentEngine) Run(seeds ...types.Request) {
 	e.Scheduler.Run()
 
 	for i := 0; i < e.WorkerCount; i++ {
-		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
+		e.createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
 	for _, r := range seeds {
+		if isDuplicate(r.Url) {
+			continue
+		}
 		e.Scheduler.Submit(r)
 	}
 
@@ -28,22 +31,34 @@ func (e *ConcurrentEngine) Run(seeds ...types.Request) {
 	for {
 		result := <-out
 		for _, item := range result.Items {
-			log.Printf("Got item #%d: %v", itemCount, item)
-			itemCount++
+				log.Printf("Got item #%d: %v", itemCount, item)
+				itemCount++
 		}
 
 		for _, request := range result.Requests {
+			if isDuplicate(request.Url) {
+				continue
+			}
 			e.Scheduler.Submit(request)
 		}
 	}
 }
 
-func createWorker(in chan types.Request,
-	out chan types.ParseResult,
-	ready scheduler.ReadyNotifier) {
+var visitedUrl = make(map[string]bool)
+
+// URL deduplicate
+func isDuplicate(url string) bool {
+	if visitedUrl[url] {
+		return true
+	}
+	visitedUrl[url] = true
+	return false
+}
+
+func (ConcurrentEngine) createWorker(in chan types.Request, out chan types.ParseResult, ready scheduler.ReadyNotifier) {
 	go func() {
 		for {
-			// tell scheduler i am ready
+			// Tell scheduler I am ready
 			ready.WorkerReady(in)
 			request := <-in
 			result, err := worker(request)

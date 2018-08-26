@@ -5,14 +5,13 @@ import (
 )
 
 // Request队列和Worker队列
-
 type QueuedScheduler struct {
-	requestCHan chan types.Request
-	workCHan    chan chan types.Request
+	requestChan chan types.Request
+	workChan    chan chan types.Request
 }
 
 func (s *QueuedScheduler) Submit(r types.Request) {
-	s.requestCHan <- r
+	s.requestChan <- r
 }
 
 func (s *QueuedScheduler) WorkerChan() chan types.Request {
@@ -20,12 +19,12 @@ func (s *QueuedScheduler) WorkerChan() chan types.Request {
 }
 
 func (s *QueuedScheduler) WorkerReady(w chan types.Request) {
-	s.workCHan <- w
+	s.workChan <- w
 }
 
 func (s *QueuedScheduler) Run() {
-	s.workCHan = make(chan chan types.Request)
-	s.requestCHan = make(chan types.Request)
+	s.workChan = make(chan chan types.Request)
+	s.requestChan = make(chan types.Request)
 	go func() {
 		var requestQ []types.Request
 		var workQ []chan types.Request
@@ -38,9 +37,9 @@ func (s *QueuedScheduler) Run() {
 			}
 
 			select {
-			case r := <-s.requestCHan:
+			case r := <-s.requestChan:
 				requestQ = append(requestQ, r)
-			case w := <-s.workCHan:
+			case w := <-s.workChan:
 				workQ = append(workQ, w)
 			case activeWorker <- activeRequest:
 				workQ = workQ[1:]
