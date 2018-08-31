@@ -29,7 +29,7 @@ func ParseCityUserList(contents []byte) types.ParseResult {
 		result.Requests = append(
 			result.Requests,
 			types.Request{
-				Url: string(m[1]),
+				Url:       string(m[1]),
 				ParseFunc: ParseCityList,
 			})
 	}

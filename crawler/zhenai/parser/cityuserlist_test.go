@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"testing"
 	"io/ioutil"
+	"testing"
 )
 
 func TestParseCityUserList(t *testing.T) {

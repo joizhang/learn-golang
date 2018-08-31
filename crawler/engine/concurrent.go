@@ -1,9 +1,9 @@
 package engine
 
 import (
-	"log"
-	"imooc.com/joizhang/learn-golang/crawler/types"
 	"imooc.com/joizhang/learn-golang/crawler/scheduler"
+	"imooc.com/joizhang/learn-golang/crawler/types"
+	"log"
 )
 
 type ConcurrentEngine struct {
@@ -31,8 +31,8 @@ func (e *ConcurrentEngine) Run(seeds ...types.Request) {
 	for {
 		result := <-out
 		for _, item := range result.Items {
-				log.Printf("Got item #%d: %v", itemCount, item)
-				itemCount++
+			log.Printf("Got item #%d: %v", itemCount, item)
+			itemCount++
 		}
 
 		for _, request := range result.Requests {

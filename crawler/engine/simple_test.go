@@ -1,9 +1,9 @@
 package engine
 
 import (
-	"testing"
-	"imooc.com/joizhang/learn-golang/crawler/zhenai/parser"
 	"imooc.com/joizhang/learn-golang/crawler/types"
+	"imooc.com/joizhang/learn-golang/crawler/zhenai/parser"
+	"testing"
 )
 
 func TestSimpleEngine_Run(t *testing.T) {

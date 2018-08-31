@@ -1,10 +1,10 @@
 package engine
 
 import (
-	"testing"
+	"imooc.com/joizhang/learn-golang/crawler/scheduler"
 	"imooc.com/joizhang/learn-golang/crawler/types"
 	"imooc.com/joizhang/learn-golang/crawler/zhenai/parser"
-	"imooc.com/joizhang/learn-golang/crawler/scheduler"
+	"testing"
 )
 
 func TestConcurrentEngine_simpleScheduler(t *testing.T) {
