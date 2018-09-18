@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"testing"
+	"imooc.com/joizhang/learn-golang/crawler/zhenai/model"
 	"io/ioutil"
-	"imooc.com/joizhang/learn-golang/crawler/model"
+	"testing"
 )
 
 func TestParseProfile(t *testing.T) {

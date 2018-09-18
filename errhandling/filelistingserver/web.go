@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"imooc.com/joizhang/learn-golang/errhandling/filelistingserver/filelisting"
-	"os"
 	"github.com/gpmgo/gopm/modules/log"
+	"imooc.com/joizhang/learn-golang/errhandling/filelistingserver/filelisting"
+	"net/http"
+	"os"
 )
 
 type appHandler func(writer http.ResponseWriter, request *http.Request) error
@@ -23,7 +23,7 @@ func errWrapper(handler appHandler) func(writer http.ResponseWriter, request *ht
 		err := handler(writer, request)
 
 		if err != nil {
-			log.Print(log.ERROR, "Error occured handling request: %s", err.Error())
+			log.Print(log.ERROR, "Error occured handling types: %s", err.Error())
 
 			if userErr, ok := err.(userError); ok {
 				http.Error(writer, userErr.Message(), http.StatusBadRequest)

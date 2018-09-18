@@ -1,9 +1,9 @@
 package filelisting
 
 import (
-	"os"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 )
 

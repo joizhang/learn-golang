@@ -1,10 +1,10 @@
 package parser
 
 import (
-	"imooc.com/joizhang/learn-golang/crawler/engine"
+	"imooc.com/joizhang/learn-golang/crawler/types"
+	"imooc.com/joizhang/learn-golang/crawler/zhenai/model"
 	"regexp"
 	"strconv"
-	"imooc.com/joizhang/learn-golang/crawler/model"
 )
 
 var ageRe = regexp.MustCompile(`<td><span class="label">年龄：</span>([\d]+)岁</td>`)
@@ -20,7 +20,8 @@ var hokouRe = regexp.MustCompile(`<td><span class="label">籍贯：</span>([^<]+
 var houseRe = regexp.MustCompile(`<td><span class="label">住房条件：</span><span field="">([^<]+)</span></td>`)
 var carRe = regexp.MustCompile(`<td><span class="label">是否购车：</span><span field="">([^<]+)</span></td>`)
 
-func ParseProfile(contents []byte, name string) engine.ParseResult {
+// 获取用户的详细资料
+func ParseProfile(contents []byte, name string) types.ParseResult {
 	profile := model.Profile{}
 	profile.Name = name
 	age, err := strconv.Atoi(extractString(contents, ageRe))
@@ -50,7 +51,7 @@ func ParseProfile(contents []byte, name string) engine.ParseResult {
 	profile.House = extractString(contents, houseRe)
 	profile.Car = extractString(contents, carRe)
 
-	result := engine.ParseResult{
+	result := types.ParseResult{
 		Items: []interface{}{profile},
 	}
 	return result

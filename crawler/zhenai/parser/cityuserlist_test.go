@@ -5,27 +5,28 @@ import (
 	"testing"
 )
 
-func TestParseCityList(t *testing.T) {
-	contents, err := ioutil.ReadFile("citylist_test_data.html")
+func TestParseCityUserList(t *testing.T) {
+	content, err := ioutil.ReadFile("cityuserlist_test_data.html")
 	if err != nil {
 		panic(err)
 	}
-	//fmt.Printf("%s\n", contents)
-	result := ParseCityList(contents)
+	result := ParseCityUserList(content)
+	const resultSize = 20
 
-	const resultSize = 470
 	expectedUrls := []string{
-		"http://www.zhenai.com/zhenghun/aba",
-		"http://www.zhenai.com/zhenghun/akesu",
-		"http://www.zhenai.com/zhenghun/alashanmeng",
+		"http://album.zhenai.com/u/1995815593",
+		"http://album.zhenai.com/u/1314495053",
+		"http://album.zhenai.com/u/1626200317",
 	}
-	expectedCities := []string{
-		"City 阿坝", "City 阿克苏", "City 阿拉善盟",
+	expectedUsers := []string{
+		"User 小顺儿", "User 风中的蒲公英", "User 路漫漫",
 	}
+
 	if len(result.Requests) != resultSize {
 		t.Errorf("result should hava %d requests; but had %d",
 			resultSize, len(result.Requests))
 	}
+
 	for i, url := range expectedUrls {
 		if result.Requests[i].Url != url {
 			t.Errorf("expected url #%d: %s; but was %s",
@@ -37,10 +38,11 @@ func TestParseCityList(t *testing.T) {
 		t.Errorf("result should hava %d items; but had %d",
 			resultSize, len(result.Items))
 	}
-	for i, city := range expectedCities {
-		if result.Items[i].(string) != city {
+	for i, user := range expectedUsers {
+		if result.Items[i].(string) != user {
 			t.Errorf("expected city #%d: %s; but was %s",
-				i, city, result.Items[i].(string))
+				i, user, result.Items[i].(string))
 		}
 	}
+
 }

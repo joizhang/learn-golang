@@ -1,10 +1,10 @@
 package main
 
 import (
-	"imooc.com/joizhang/learn-golang/pipeline"
-	"fmt"
-	"os"
 	"bufio"
+	"fmt"
+	"imooc.com/joizhang/learn-golang/pipeline"
+	"os"
 )
 
 func main() {

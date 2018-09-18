@@ -1,11 +1,11 @@
 package main
 
 import (
-	"os"
-	"imooc.com/joizhang/learn-golang/pipeline"
 	"bufio"
 	"fmt"
 	"strconv"
+	"imooc.com/joizhang/learn-golang/pipeline"
+	"os"
 )
 
 func main() {
@@ -77,7 +77,7 @@ func createNetworkPipeline(filename string, fileSize, chunkCount int) <-chan int
 		file.Seek(int64(i*chunkSize), 0)
 		source := pipeline.ReaderSource(bufio.NewReader(file), chunkSize)
 
-		addr := ":" + strconv.Itoa(7000 + i)
+		addr := ":" + strconv.Itoa(7000+i)
 		pipeline.NetworkSink(addr, pipeline.InMemorySort(source))
 		sortAddr = append(sortAddr, addr)
 	}

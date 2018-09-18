@@ -1,4 +1,4 @@
-package engine
+package types
 
 type Request struct {
 	Url       string
