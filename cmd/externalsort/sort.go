@@ -5,10 +5,15 @@ import (
 	"imooc.com/joizhang/learn-golang/pipeline"
 	"bufio"
 	"fmt"
+	"strconv"
 )
 
 func main() {
-	p := createPipeline("large.in", 800000000, 8)
+	//p := createPipeline("large.in", 800000000, 8)
+	//writeToFile(p, "large.out")
+	//printFile("large.out")
+
+	p := createNetworkPipeline("large.in", 800000000, 8)
 	writeToFile(p, "large.out")
 	printFile("large.out")
 }
@@ -55,6 +60,30 @@ func createPipeline(filename string, fileSize, chunkCount int) <-chan int {
 		file.Seek(int64(i*chunkSize), 0)
 		source := pipeline.ReaderSource(bufio.NewReader(file), chunkSize)
 		sortResults = append(sortResults, pipeline.InMemorySort(source))
+	}
+	return pipeline.MergeN(sortResults...)
+}
+
+func createNetworkPipeline(filename string, fileSize, chunkCount int) <-chan int {
+	chunkSize := fileSize / chunkCount
+	pipeline.Init()
+
+	var sortAddr []string
+	for i := 0; i < chunkCount; i++ {
+		file, err := os.Open(filename)
+		if err != nil {
+			panic(err)
+		}
+		file.Seek(int64(i*chunkSize), 0)
+		source := pipeline.ReaderSource(bufio.NewReader(file), chunkSize)
+
+		addr := ":" + strconv.Itoa(7000 + i)
+		pipeline.NetworkSink(addr, pipeline.InMemorySort(source))
+		sortAddr = append(sortAddr, addr)
+	}
+	var sortResults []<-chan int
+	for _, addr := range sortAddr {
+		sortResults = append(sortResults, pipeline.NetworkSource(addr))
 	}
 	return pipeline.MergeN(sortResults...)
 }
