@@ -7,16 +7,16 @@ import (
 
 func main() {
 	var result, i uint64
-	// 单个协程执行累加操作
+	// single goroutine executes calc
 	start := time.Now()
 	for i = 1; i < 10000000000; i++ {
 		result += i
 	}
 	elapsed := time.Since(start)
-	fmt.Print("执行消耗的时间为：", elapsed)
+	fmt.Print("Consumed time：", elapsed)
 	fmt.Print(", result：", result, "\n")
 
-	// 4 个协程共同执行累加操作
+	// four goroutines execute calc
 	start = time.Now()
 	ch1 := calc(1, 2500000000)
 	ch2 := calc(2500000001, 5000000000)
@@ -24,7 +24,7 @@ func main() {
 	ch4 := calc(7500000001, 10000000000)
 	result = <-ch1 + <-ch2 + <-ch3 + <-ch4
 	elapsed = time.Since(start)
-	fmt.Print("执行消耗的时间为：", elapsed)
+	fmt.Print("Consumed time：", elapsed)
 	fmt.Print(", result：", result)
 
 }
