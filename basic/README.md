@@ -1,0 +1,5 @@
+- `basic/basic.go`：2-1 变量定义、2-2 内建变量类型以及2-3 常量与枚举。
+- `branch/branch.go`：2-4 条件语句
+- `loop/loop.go`：2-5 循环
+- `func/func.go`：2-6 函数
+- ``

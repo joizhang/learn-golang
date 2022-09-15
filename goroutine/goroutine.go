@@ -13,8 +13,8 @@ func main() {
 		result += i
 	}
 	elapsed := time.Since(start)
-	fmt.Print("Consumed time：", elapsed)
-	fmt.Print(", result：", result, "\n")
+	fmt.Print("Consumed time: ", elapsed)
+	fmt.Print(", result: ", result, "\n")
 
 	// four goroutines execute calc
 	start = time.Now()
@@ -24,8 +24,8 @@ func main() {
 	ch4 := calc(7500000001, 10000000000)
 	result = <-ch1 + <-ch2 + <-ch3 + <-ch4
 	elapsed = time.Since(start)
-	fmt.Print("Consumed time：", elapsed)
-	fmt.Print(", result：", result)
+	fmt.Print("Consumed time: ", elapsed)
+	fmt.Print(", result: ", result)
 
 }
 

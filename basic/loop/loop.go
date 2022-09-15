@@ -15,6 +15,10 @@ func convertToBin(n int) string {
 		lsb := n % 2
 		result = strconv.Itoa(lsb) + result
 	}
+	// fix 0 output
+	if result == "" {
+		return "0"
+	}
 	return result
 }
 
@@ -51,7 +55,7 @@ func main() {
 	)
 
 	fmt.Println("abc.txt contents:")
-	printFile("basic/branch/abc.txt")
+	printFile("../branch/abc.txt")
 
 	fmt.Println("printing a string:")
 	s := `abc"d"

@@ -15,34 +15,34 @@ var (
 func variableZeroValue() {
 	var a int
 	var s string
-	fmt.Printf("%d %q\n", a, s)
+	fmt.Printf("Call variableZeroValue: %d %q\n", a, s)
 }
 
 func variableInitialValue() {
 	var a, b int = 3, 4
 	var s string = "abc"
-	fmt.Println(a, b, s)
+	fmt.Println("Call variableInitialValue: ", a, b, s)
 }
 
 func variableTypeDeduction() {
 	var a, b, c, s = 3, 4, true, "def"
-	fmt.Println(a, b, c, s)
+	fmt.Println("Call variableTypeDeduction: ", a, b, c, s)
 }
 
 func variableShorter() {
 	a, b, c, s := 3, 4, true, "def"
 	b = 5
-	fmt.Println(a, b, c, s)
+	fmt.Println("Call variableShorter", a, b, c, s)
 }
 
 func euler() {
-	fmt.Printf("%.3f\n",
+	fmt.Printf("Call euler: %.3f\n",
 		cmplx.Exp(1i*math.Pi)+1)
 }
 
 func triangle() {
 	var a, b int = 3, 4
-	fmt.Println(calcTriangle(a, b))
+	fmt.Println("Call triangle", calcTriangle(a, b))
 }
 
 func calcTriangle(a, b int) int {
@@ -58,7 +58,7 @@ func consts() {
 	)
 	var c int
 	c = int(math.Sqrt(a*a + b*b))
-	fmt.Println(filename, c)
+	fmt.Println("Call consts:", filename, c)
 }
 
 func enums() {
@@ -79,8 +79,8 @@ func enums() {
 		pb
 	)
 
-	fmt.Println(cpp, javascript, python, golang)
-	fmt.Println(b, kb, mb, gb, tb, pb)
+	fmt.Println("Call enums:", cpp, javascript, python, golang)
+	fmt.Println("Call enums:", b, kb, mb, gb, tb, pb)
 }
 
 func main() {

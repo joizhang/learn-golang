@@ -69,5 +69,5 @@ func main() {
 
 	a, b := 3, 4
 	a, b = swap(a, b)
-	fmt.Println("a, b after swap is:", a, b)
+	fmt.Println("a=3, b=4. After swap is:", a, b)
 }
