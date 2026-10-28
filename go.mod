@@ -1,8 +1,8 @@
 module imooc.com/joizhang/learn-golang
 
-go 1.18
+go 1.27.3
 
 require (
-	golang.org/x/net v0.0.0-20220728030405-41545e8bf201
-	golang.org/x/text v0.3.7
+	golang.org/x/net v0.62.0
+	golang.org/x/text v0.43.0
 )
