@@ -14,7 +14,7 @@ func errWrapper(handler appHandler) func(writer http.ResponseWriter, request *ht
 	return func(writer http.ResponseWriter, request *http.Request) {
 		defer func() {
 			if r := recover(); r != nil {
-				log.Panicf("Panic: %v\n", r)
+				log.Printf("Panic: %v\n", r)
 				http.Error(writer,
 					http.StatusText(http.StatusInternalServerError),
 					http.StatusInternalServerError)
@@ -24,7 +24,7 @@ func errWrapper(handler appHandler) func(writer http.ResponseWriter, request *ht
 		err := handler(writer, request)
 
 		if err != nil {
-			log.Fatalf("Error occured handling types: %s\n", err.Error())
+			log.Printf("Error occured handling types: %s\n", err.Error())
 
 			if userErr, ok := err.(userError); ok {
 				http.Error(writer, userErr.Message(), http.StatusBadRequest)
