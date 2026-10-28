@@ -13,6 +13,7 @@ func ParseCityUserList(contents []byte) types.ParseResult {
 	result := types.ParseResult{}
 	for _, m := range matches {
 		name := string(m[2])
+		result.Items = append(result.Items, "User "+name)
 		result.Requests = append(
 			result.Requests,
 			types.Request{
